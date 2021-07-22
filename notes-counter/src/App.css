@@ -1,0 +1,88 @@
+.container {
+  margin: 1rem 5rem;
+  background-image: url("./images/shutterstock_522159577.jpg");
+  /* opacity: 0.5; */
+}
+.card {
+  
+  margin: 0 auto;
+  padding: 1rem;
+  box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
+  transition: 0.3s;
+  width: 40%;
+  background: #fff;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.card Button {
+  margin: 1rem 14rem;
+}
+
+.card form h3 {
+  font-weight: bold;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.flex {
+  display: flex;
+  /* margin: auto; */
+  position: relative;
+  padding: 1rem;
+  top: 1rem;
+  left: 7.5rem;
+  /* border: 1px solid; */
+  max-width: 250px;
+  
+}
+.flex ul li {
+  list-style-type:none;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 15px;
+  background-color: rgb(243, 215, 178);
+}
+.flex h4 {
+  font-weight: bold;
+  display: contents;
+  word-wrap: break-word;
+}
+.flex .ul1 {
+  border: 1px solid;
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+.flex ul {
+  padding-inline-start: 5px;
+  
+}
+
+@media (max-width: 780px) {
+  .container {
+    margin:1rem;
+  }
+  .card {
+    width: 70%;
+    padding: 2rem;
+  }
+  .card .form .makeStyles-root-4 .MuiTextField-root {
+    margin:0;
+  }
+  .card .form Button {
+    margin: 1rem 3rem;
+  }
+  .flex {
+    max-width: 200px;
+    position: relative;
+    /* right: 7rem; */
+    left: -1.8rem;
+  }
+  .flex .ul1 {
+    margin:0;
+  }
+}
+
+        
