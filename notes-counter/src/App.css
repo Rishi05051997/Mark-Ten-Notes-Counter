@@ -59,6 +59,22 @@
   padding-inline-start: 5px;
   
 }
+.footer {
+  background-color: cornflowerblue;
+  padding: 1rem;
+  border-radius: 0 10px 0 10px;
+}
+.footer h3 {
+  text-align: center;
+}
+.footer h3 a {
+  text-decoration: none;
+}
+.footer h3 a:hover{
+  color: white;
+ 
+  
+}
 
 @media (max-width: 780px) {
   .container {
@@ -68,9 +84,13 @@
     width: 70%;
     padding: 2rem;
   }
+  .card form h3{
+    font-size: 1.5rem;
+  }
   .card .form .MuiTextField-root {
     margin:0;
   }
+
   .card .form Button {
     margin: 1rem 3rem;
   }
@@ -82,6 +102,13 @@
   }
   .flex .ul1 {
     margin:0;
+  }
+  .footer h3 {
+    font-size:1rem;
+  }
+  .footer p {
+    font-size:0.5rem;
+    text-align: center;
   }
 }
 
