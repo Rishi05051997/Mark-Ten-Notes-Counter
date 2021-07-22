@@ -75,6 +75,9 @@
  
   
 }
+.footer p {
+  text-align: center;
+}
 
 @media (max-width: 780px) {
   .container {
