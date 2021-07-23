@@ -34,21 +34,25 @@ export default function Main() {
     
 
     const compareCashNAmount = (amount, cash) => {
-        if(amount === 0){
-            return setzeroValueError(true);
+        if(amount < 0){
+            setzeroValueError(true);
+            setDisplayTable(false)
         }
         else if (amount > cash) {
             setError(true);
             setDisplayTable(false)
+            setzeroValueError(false);
         }
         else if (amount === cash) {
             setError(true);
             setDisplayTable(false)
+            setzeroValueError(false);
         }
 
         else {
             let updatedCash = parseInt(cash) - parseInt(amount)
             setError(false);
+            setzeroValueError(false);
             // console.log(updatedCash);
             setTotalAmount(updatedCash)
             // setCash(updatedCash);  
