@@ -18,44 +18,73 @@ export default function Main() {
     const classes = useStyles();
     let Notes = [2000, 500, 200, 100, 50, 20, 10, 5, 1]
     let [amount, setAmount] = useState('');
+    let [cash, setCash] = useState();
     const [totalAmount, setTotalAmount] = useState('');
     const [notes, setNotes] = useState(Notes);
     let [notesCounter, setNotesCounter] = useState([]);
     const [displayTable, setDisplayTable] = useState(false);
     let formIsValid = false;
     const [noOfNotes, setNoOfNotes] = useState();
+    const [error, setError] = useState(false);
 
-    if(amount){
+    if (amount && cash) {
         formIsValid = true;
     }
-    const OnFormSubmit = (e) => {
-        e.preventDefault();
 
-        notesCounter = Array(9).fill(0);
-        console.log(notesCounter)
-        setTotalAmount(amount)
-        parseInt(amount)
+    const compareCashNAmount = (amount, cash) => {
+        if (amount > cash) {
+            setError(true);
+            setDisplayTable(false)
+        }
+        else if (amount === cash) {
+            setError(true);
+            setDisplayTable(false)
+        }
+
+        else {
+            let updatedCash = parseInt(cash) - parseInt(amount)
+            setError(false);
+            // console.log(updatedCash);
+            setTotalAmount(updatedCash)
+            // setCash(updatedCash);  
+            gettingNofOfNotes(updatedCash);
+        }
+    }
+
+    const gettingNofOfNotes = (cash) => {
+        // console.log(cash)
+        notesCounter = Array(9).fill(0)
+        // debugger
+        let Cash = cash;
+
         for (let i = 0; i < notes.length; i++) {
-            if (parseInt(amount) >= notes[i]) {
+            if (parseInt(Cash) >= notes[i]) {
                 setNotes(notes)
-                notesCounter[i] = (Math.floor(amount / notes[i]))
-                amount = amount - (notesCounter[i] * notes[i]);
-                console.log(amount)
-                setAmount(amount)
-                console.log(notesCounter[i])
+                notesCounter[i] = (Math.floor(Cash / notes[i]));
+                Cash = Cash - (notesCounter[i] * notes[i]);
                 setNotesCounter(notesCounter)
                 setDisplayTable(true)
-
-
+                
+                
             }
         }
-        console.log(amount, notesCounter, notes)
-        // for(let i=0;i<notesCounter.length;i++){
         // debugger;
+        // console.log(amount, notesCounter, notes)
         setNoOfNotes(notesCounter.reduce((a, b) => a + b, 0))
-        console.log(noOfNotes)
-        // }
+        
+    }
 
+    
+
+
+
+    const OnFormSubmit = (e) => {
+        e.preventDefault();
+        
+        compareCashNAmount(parseInt(amount), parseInt(cash));
+        
+        setAmount('');
+        setCash('');
 
     }
 
@@ -67,13 +96,13 @@ export default function Main() {
         <div className="card">
             <div class="form">
                 <form className={classes.root} noValidate autoComplete="off" onSubmit={OnFormSubmit}>
-                    <h3>CASH REGISTER APP</h3>
+                    <h3>Cash Register Manager</h3>
+                    <p>Enter the bill amount and cash given by the customer and know minimum number of notes to return.</p>
                     <div>
                         <TextField
 
                             id="outlined-error"
-                            label="Enter Amount"
-                            defaultValue="Hello World"
+                            label="Enter Bill Amount"
                             variant="outlined"
                             type="number"
                             value={amount}
@@ -81,15 +110,41 @@ export default function Main() {
                         />
 
 
-                    </div>
-                    <Button type="submit" disabled={!formIsValid} variant="contained" color="primary">
-                        Primary
-                    </Button>
+                    </div><br />
+                    {
+                        amount &&
+                        <div>
+                            <TextField
+
+                                id="outlined-error"
+                                label="Enter Cash Given"
+
+                                variant="outlined"
+                                type="number"
+                                value={cash}
+                                onChange={(e) => setCash(e.target.value)}
+                            />
+
+
+                        </div>
+                    }
+                    {
+                        amount && cash &&
+                        <Button type="submit" disabled={!formIsValid} variant="contained" color="primary">
+                            Check
+                        </Button>
+                    }
                 </form>
             </div>
             {
+                error && <p className="error-p">Either Cash is less than bill or Cash is equal to Bill Amount, please enter right amount</p>
+            }
+            {
+
                 displayTable &&
+                
                 <div className="flex">
+                    <h2>Change</h2>
                     <div className="ul1">
                         <h4>Notes In INR</h4>
                         <ul >
@@ -101,19 +156,19 @@ export default function Main() {
                             }
 
                         </ul>
-                        <span>Amount - {totalAmount}</span>
+                        <span  className="span">Diffrence  - {totalAmount} RS</span>
                     </div>
                     <div className="ul1">
                         <h4>No Of Notes</h4>
                         <ul >
                             {
 
-                                notesCounter.map((note) => {
-                                    return (<li>{note}</li>)
+                                notesCounter.map((note, i) => {
+                                    return (<li key="i">{note}</li>)
                                 })
                             }
                         </ul>
-                        <span>Min No Of Notes - {noOfNotes}</span>
+                        <span className="span">Min No Of Notes - {noOfNotes}</span>
                     </div>
 
 
