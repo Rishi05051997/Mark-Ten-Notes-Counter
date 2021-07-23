@@ -26,13 +26,18 @@ export default function Main() {
     let formIsValid = false;
     const [noOfNotes, setNoOfNotes] = useState();
     const [error, setError] = useState(false);
-
+    const [zeroValueError, setzeroValueError] = useState(false);
     if (amount && cash) {
         formIsValid = true;
     }
+    
+    
 
     const compareCashNAmount = (amount, cash) => {
-        if (amount > cash) {
+        if(amount === 0){
+            return setzeroValueError(true);
+        }
+        else if (amount > cash) {
             setError(true);
             setDisplayTable(false)
         }
@@ -136,6 +141,9 @@ export default function Main() {
                     }
                 </form>
             </div>
+            {
+                zeroValueError && <p className="error-p">Bill Amount Should be greater than (0) zero</p>
+            }
             {
                 error && <p className="error-p">Either Cash is less than bill or Cash is equal to Bill Amount, please enter right amount</p>
             }
